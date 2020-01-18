@@ -1,0 +1,24 @@
+{
+  "name": "fancy-events",
+  "version": "1.0.0",
+  "description": "event management system",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdahMilly/fancy-events.git"
+  },
+  "keywords": [
+    "event",
+    "api",
+    "javascript"
+  ],
+  "author": "mildred",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdahMilly/fancy-events/issues"
+  },
+  "homepage": "https://github.com/AdahMilly/fancy-events#readme"
+}

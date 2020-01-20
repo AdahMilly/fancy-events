@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import errorHandler from './lib/middlewares/globalErrorHandler';
-
+import { getUsersRouter } from './domains/users/users.routes';
 
 
 class App {
@@ -15,7 +15,8 @@ class App {
   createExpressApp() {
     const app = express();
     app.use(express.json());
-
+    
+    this.addApiRoute(getUsersRouter())
 
     if (app.get('env') === 'development') {
       app.use(morgan('dev'));

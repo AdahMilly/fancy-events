@@ -20,7 +20,7 @@ class UsersService {
       password: encryptedPassword,
     });
 
-    const token = createToken({ id: createdUser.id }, config.secretKey);
+    const token = createToken({ id: createdUser.id,name: createdUser.name }, config.secretKey);
 
     const registeredUser = {
       ...createdUser,
@@ -30,9 +30,22 @@ class UsersService {
     return registeredUser;
   }
 
-  login(user) {
-    const { id } = user;
-    const token = createToken({ id }, config.secretKey);
+  async login(userCredentials) {
+    console.log(userCredentials)
+    const user = await usersResource.getUser('email',userCredentials.email);
+    if(!user){
+      throw new CustomError(401, 'Wrong email or password');
+    }
+
+    console.log(user)
+    const isValidPassword = await EncryptData.compareHash(userCredentials.password, user.password);
+    console.log(isValidPassword);
+      if(!isValidPassword){
+        throw new CustomError(401, 'Wrong email or password')
+     }
+
+    const { id, name } = user;
+    const token = createToken({ id, name }, config.secretKey);
     return token;
   }
 }

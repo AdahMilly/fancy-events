@@ -13,6 +13,11 @@ const authData = {
     required: true,
     length: { min: 6 },
   },
+  name: {
+    type: String,
+    required: true,
+    length: { min: 3},
+  },
 };
 
 const validateAuthData = (req, res, next) => {

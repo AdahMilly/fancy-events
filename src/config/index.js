@@ -12,7 +12,8 @@ const envVarsSchema = joi
     DATABASE_PASSWORD: joi.string().default(null),
     DATABASE_USER: joi.string().required(),
     DATABASE_URL: joi.string().default(null),
-    HOST: joi.string().required()
+    HOST: joi.string().required(),
+    SECRET_KEY: joi.string().required()
   })
   .unknown()
   .required();
@@ -33,7 +34,9 @@ export const getConfig = () => {
       password: envVars.DATABASE_PASSWORD,
       databaseUrl: envVars.DATABASE_URL,
       host: envVars.HOST,
-    }
+    },
+    secretKey: envVars.SECRET_KEY,
+  
   };
 
   return config;

@@ -25,7 +25,7 @@ async function createEventTable(knex) {
     table.time('time')
     .notNull();
 
-    table.integer('created by')
+    table.integer('created_by')
     .references('id')
     .inTable(USERS_TABLE_NAME)
     .notNull();

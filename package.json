@@ -44,6 +44,9 @@
     "knex": "^0.20.8",
     "knex-stringcase": "^1.4.1",
     "morgan": "^1.9.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.17.1",
     "validate": "^5.1.0"
   },

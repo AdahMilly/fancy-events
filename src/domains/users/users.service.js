@@ -30,22 +30,9 @@ class UsersService {
     return registeredUser;
   }
 
-  async login(userCredentials) {
-    console.log(userCredentials)
-    const user = await usersResource.getUser('email',userCredentials.email);
-    if(!user){
-      throw new CustomError(401, 'Wrong email or password');
-    }
-
-    console.log(user)
-    const isValidPassword = await EncryptData.compareHash(userCredentials.password, user.password);
-    console.log(isValidPassword);
-      if(!isValidPassword){
-        throw new CustomError(401, 'Wrong email or password')
-     }
-
-    const { id, name } = user;
-    const token = createToken({ id, name }, config.secretKey);
+  async login(user) {
+    const { id } = user;
+    const token = createToken({ id }, config.secretKey);
     return token;
   }
 }

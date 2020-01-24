@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { protectedAsyncRequestHandler } from '../../lib/utils/protectedAsyncHandler';
 import validateAuthData from '../../lib/middlewares/validateAuthData';
 import { usersService } from './users.service';
+import { localAuthentication } from '../../lib/utils/passportSetup';
 
 export function getUsersRouter() {
   const usersRouter = Router();
@@ -15,10 +16,12 @@ export function getUsersRouter() {
     }),
   );
 
+
   usersRouter.post(
     '/login',
+    localAuthentication,
     protectedAsyncRequestHandler(async (req, res) => {
-      const token = await usersService.login(req.body);
+      const token = await usersService.login(req.user);
       res.status(200).json({ message: "login successful", token });
     }),
   )

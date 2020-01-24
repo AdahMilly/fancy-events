@@ -13,7 +13,8 @@ const envVarsSchema = joi
     DATABASE_USER: joi.string().required(),
     DATABASE_URL: joi.string().default(null),
     HOST: joi.string().required(),
-    SECRET_KEY: joi.string().required()
+    SECRET_KEY: joi.string().required(),
+    JWT_EXPIRATION: joi.string().required()
   })
   .unknown()
   .required();
@@ -36,6 +37,7 @@ export const getConfig = () => {
       host: envVars.HOST,
     },
     secretKey: envVars.SECRET_KEY,
+    jwtExpiration: envVars.JWT_EXPIRATION,
   
   };
 

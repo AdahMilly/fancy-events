@@ -1,9 +1,11 @@
 import CustomError from '../utils/customError';
 
 const errorHandler = (err, req, res, next) => {
+  console.log(err)
   if (res.headersSent) {
     return next(err);
   }
+
   if (err instanceof CustomError) {
     return res.status(err.statusCode).json({ message: err.message });
   }

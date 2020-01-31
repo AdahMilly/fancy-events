@@ -11,7 +11,7 @@ class UsersService {
     const { email, password, name } = createUserBody;
     const existingUser = await usersResource.getUser('email', email);
     if (existingUser) {
-      throw new CustomError(401, 'User already exists');
+      throw new CustomError(409, 'User already exists');
     }
     const encryptedPassword = EncryptData.generateHash(password);
     const createdUser = await usersResource.create({

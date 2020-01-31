@@ -1,6 +1,7 @@
 import { knexInstance } from '../../database/knexInstance';
 
 const EVENTS_TABLE_NAME = 'events';
+const RSVPS_TABLE = 'rsvps';
 
 class EventsResource{
   async create(eventBody){
@@ -27,6 +28,24 @@ class EventsResource{
     .where('id',eventId)
 
     return updatedEvent;
+  }
+
+  async deleteEvent(eventId){
+    return knexInstance(EVENTS_TABLE_NAME)
+      .delete()
+      .where('id', eventId)
+  }
+
+  async rsvp(eventId, userId){
+    return knexInstance(RSVPS_TABLE)
+      .insert({eventId, userId});
+  }
+
+  async getRsvps(field, value ){
+    const rsvps = await knexInstance(RSVPS_TABLE)
+      .select('*')
+      .where(field, value);
+    return rsvps;
   }
 }
 

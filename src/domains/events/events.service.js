@@ -1,5 +1,6 @@
 import { eventResource } from './events.resource';
 import CustomError from '../../lib/utils/customError';
+import { usersResource } from '../users/users.resource';
 
 class EventsService {
   async create(createEventBody){
@@ -20,6 +21,20 @@ class EventsService {
   async updateEvent(updateEventBody, eventId){
     const event = await eventResource.updateEvent(updateEventBody, eventId);
     return event;
+  }
+  
+  async deleteEvent(eventId){
+    return eventResource.deleteEvent(eventId);
+  }
+
+  async rsvp(eventId, userId){
+    return eventResource.rsvp(eventId, userId);
+  }
+
+  async getRsvps(field, value){
+    const rsvps = await  eventResource.getRsvps(field, value);
+    const guests = await Promise.all(rsvps.map(rsvp => usersResource.getUser('id', rsvp.userId)))
+    return guests;
   }
 
 }

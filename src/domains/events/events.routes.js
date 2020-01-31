@@ -40,5 +40,34 @@ export function getEventsRouter(){
     })
 
   )
+
+  eventsRouter.delete(
+    '/events/:id',
+    jwtAuthentication,
+    protectedAsyncRequestHandler( async (req, res) => {
+      await eventsService.deleteEvent(req.params.id);
+      res.status(200).json({message: 'event deleted successfuly'});
+    })
+  )
+
+  eventsRouter.post(
+    '/events/:id/rsvp',
+    jwtAuthentication,
+    protectedAsyncRequestHandler( async (req, res) => {
+      await eventsService.rsvp(req.params.id, req.user.id)
+      res.status(201).json({ message: 'ticket reserved successfuly'})
+    })
+  )
+
+  eventsRouter.get(
+    '/events/:id/rsvps',
+    jwtAuthentication,
+    protectedAsyncRequestHandler( async (req, res) => {
+      const rsvps = await eventsService.getRsvps('eventId', req.params.id);
+      res.status(200).json({ message: 'success', rsvps});
+    })
+
+  )
+  
   return eventsRouter;
 }

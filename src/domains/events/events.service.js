@@ -1,6 +1,5 @@
 import { eventResource } from './events.resource';
 import CustomError from '../../lib/utils/customError';
-import { usersResource } from '../users/users.resource';
 
 class EventsService {
   async create(createEventBody){
@@ -28,12 +27,20 @@ class EventsService {
   }
 
   async rsvp(eventId, userId){
-    return eventResource.rsvp(eventId, userId);
+    try {
+      await eventResource.rsvp(eventId, userId);
+    } catch(error){
+      if(error.message.includes('duplicate')){
+        throw new CustomError(409, 'you already reserved a ticket for this event')
+      } else {
+        throw new CustomError(500, 'an error occured while trying to reserver a ticket, plesae try agin later');
+      }
+    }
+  
   }
-
-  async getRsvps(field, value){
-    const rsvps = await  eventResource.getRsvps(field, value);
-    const guests = await Promise.all(rsvps.map(rsvp => usersResource.getUser('id', rsvp.userId)))
+ 
+  async getRsvps(eventId){
+    const guests = await eventResource.getRsvps(eventId);
     return guests;
   }
 

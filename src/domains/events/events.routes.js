@@ -63,8 +63,8 @@ export function getEventsRouter(){
     '/events/:id/rsvps',
     jwtAuthentication,
     protectedAsyncRequestHandler( async (req, res) => {
-      const rsvps = await eventsService.getRsvps('eventId', req.params.id);
-      res.status(200).json({ message: 'success', rsvps});
+      const guests = await eventsService.getRsvps(req.params.id);
+      res.status(200).json({ message: 'success', guests});
     })
 
   )

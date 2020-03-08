@@ -45,19 +45,12 @@ class EventsResource{
 
   async getRsvps(eventId){
     const guests = await knexInstance(RSVPS_TABLE)
-    .select(['email', 'name'])
+    .select(['name', 'email'])
     .innerJoin(USERS_TABLE, `${USERS_TABLE}.id`, `${RSVPS_TABLE}.user_id`)
     .where(`${RSVPS_TABLE}.event_id`, eventId);
     return guests; 
   }
 
-  /*async getRsvps(userId){
-    const rsvps = await knexInstance(RSVPS_TABLE)
-    .select(['events'])
-    .innerJoin(EVE, `${USERS_TABLE}.id`, `${RSVPS_TABLE}.event_id`)
-    .innerJoin(EVENTS_TABLE_NAME, `${USERS_TABLE}.id`, `${RSVPS_TABLE}.event_id`)
-    .where(`${RSVPS_TABLE}.user_id`, userId);
-  }*/
 }
 
 export const eventResource = new EventsResource();

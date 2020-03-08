@@ -24,6 +24,16 @@ export function getUsersRouter() {
       const token = await usersService.login(req.user);
       res.status(200).json({ message: "login successful", token });
     }),
+  );
+
+  usersRouter.get(
+    '/myRsvps',
+    localAuthentication,
+    protectedAsyncRequestHandler(async (req,res) => {
+      console.log('fffffffffetchhhhing my srsvps')
+      const rsvps = await usersService.getMyRsvps(req.user.id);
+      res.status(200).json({message: "my rsvps", rsvps })
+    })
   )
 
   return usersRouter;

@@ -35,6 +35,11 @@ class UsersService {
     const token = createToken({ id }, config.secretKey);
     return token;
   }
+
+  async getMyRsvps (userId) {
+    const events = await usersResource.getMyRsvps(userId);
+    return events;
+  }
 }
 
 export const usersService = new UsersService();

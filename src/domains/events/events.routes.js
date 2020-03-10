@@ -66,7 +66,15 @@ export function getEventsRouter(){
       const guests = await eventsService.getRsvps(req.params.id);
       res.status(200).json({ message: 'success', guests});
     })
+  )
 
+  eventsRouter.put(
+    '/events/:id/rsvps/cancel',
+    jwtAuthentication,
+    protectedAsyncRequestHandler( async (req, res) => {
+      await eventsService.cancelRsvp(req.params.id, req.user.id);
+      res.status(200).json({ message: 'rsvp cancelled successfuly'});
+    })
   )
   
   return eventsRouter;

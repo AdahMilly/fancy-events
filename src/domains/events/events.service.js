@@ -36,12 +36,15 @@ class EventsService {
         throw new CustomError(500, 'an error occured while trying to reserver a ticket, plesae try agin later');
       }
     }
-  
   }
  
   async getRsvps(eventId){
     const guests = await eventResource.getRsvps(eventId);
     return guests;
+  }
+
+  async cancelRsvp(eventId, userId) {
+    return eventResource.cancelRsvp(eventId, userId);
   }
 
 }

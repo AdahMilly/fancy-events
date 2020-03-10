@@ -47,8 +47,15 @@ class EventsResource{
     const guests = await knexInstance(RSVPS_TABLE)
     .select(['name', 'email'])
     .innerJoin(USERS_TABLE, `${USERS_TABLE}.id`, `${RSVPS_TABLE}.user_id`)
-    .where(`${RSVPS_TABLE}.event_id`, eventId);
+    .where(`${RSVPS_TABLE}.event_id`, eventId)
+    .where(`${RSVPS_TABLE}.cancelled`, false);
     return guests; 
+  }
+
+  async cancelRsvp(eventId, userId) {
+    return knexInstance(RSVPS_TABLE)
+      .update({cancelled: true})
+      .where({ eventId, userId })
   }
 
 }

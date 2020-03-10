@@ -15,6 +15,14 @@ async function createRsvpsTable(knex) {
     .inTable(EVENTS_TABLE_NAME)
     .notNull();
 
+    table.boolean('attended')
+      .notNullable()
+      .defaultTo(false);
+    
+    table.boolean('cancelled')
+      .notNullable()
+      .defaultTo(false);
+
     table.unique(['user_id','event_id'])
   })
 

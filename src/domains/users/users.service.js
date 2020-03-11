@@ -8,7 +8,8 @@ const config = getConfig();
 
 class UsersService {
   async create(createUserBody) {
-    const { email, password, name } = createUserBody;
+    const { email, password, name, phoneNumber } = createUserBody;
+    console.log(createUserBody);
     const existingUser = await usersResource.getUser('email', email);
     if (existingUser) {
       throw new CustomError(409, 'User already exists');
@@ -18,6 +19,7 @@ class UsersService {
       email,
       name,
       password: encryptedPassword,
+      phone: phoneNumber
     });
 
     const token = createToken({ id: createdUser.id,name: createdUser.name }, config.secretKey);

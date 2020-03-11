@@ -1,5 +1,7 @@
 import { eventResource } from './events.resource';
 import CustomError from '../../lib/utils/customError';
+import { usersResource } from '../users/users.resource';
+import { sendSms } from '../../lib/utils/smsSender';
 
 class EventsService {
   async create(createEventBody){
@@ -29,6 +31,9 @@ class EventsService {
   async rsvp(eventId, userId){
     try {
       await eventResource.rsvp(eventId, userId);
+      const { phone } = usersResource.etUser('id', userId);
+      const messageDetails = { to: '+254705960799', message: 'thank you for RSVPing'};
+      //await sendSms(messageDetails);
     } catch(error){
       if(error.message.includes('duplicate')){
         throw new CustomError(409, 'you already reserved a ticket for this event')
@@ -45,6 +50,10 @@ class EventsService {
 
   async cancelRsvp(eventId, userId) {
     return eventResource.cancelRsvp(eventId, userId);
+  }
+
+  async cancelEvent(eventId){
+    return eventResource.cancelEvent(eventId);
   }
 
 }

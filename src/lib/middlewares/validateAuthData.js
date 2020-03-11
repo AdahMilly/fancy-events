@@ -18,6 +18,12 @@ const authData = {
     required: true,
     length: { min: 3},
   },
+  phoneNumber: {
+    type: String,
+    match: /^[0-9]+$/,
+    required: true,
+    length: {min: 10},
+  }
 };
 
 const validateAuthData = (req, res, next) => {

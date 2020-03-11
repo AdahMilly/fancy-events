@@ -16,7 +16,11 @@ class App {
   createExpressApp() {
     const app = express();
     app.use(express.json());
-    
+    app.get(
+      '/',
+        (req, res) => res.status(200).json({ message: 'welcome to fancy events api'})
+      )
+
     this.addApiRoute(getUsersRouter())
     this.addApiRoute(getEventsRouter())
 

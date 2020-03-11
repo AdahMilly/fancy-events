@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { eventsService } from './events.service';
 import { protectedAsyncRequestHandler } from '../../lib/utils/protectedAsyncHandler';
 import { jwtAuthentication } from '../../lib/utils/passportSetup';
+import { eventResource } from './events.resource';
 
 export function getEventsRouter(){
   const eventsRouter = Router();
@@ -74,6 +75,15 @@ export function getEventsRouter(){
     protectedAsyncRequestHandler( async (req, res) => {
       await eventsService.cancelRsvp(req.params.id, req.user.id);
       res.status(200).json({ message: 'rsvp cancelled successfuly'});
+    })
+  )
+
+  eventsRouter.put(
+    'events/:id/cancel',
+    jwtAuthentication,
+    protectedAsyncRequestHandler(async (req, res) => {
+      await eventsService.cancelEvent(req.params.id);
+      res.status(200).json({ message: 'event cancelled successfuly'});
     })
   )
   

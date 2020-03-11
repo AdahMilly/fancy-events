@@ -8,27 +8,30 @@ async function createEventTable(knex) {
     .primary();
 
     table.string('name')
-    .notNull();
+      .notNull();
+
+    table.boolean('cancelled')
+      .defaultTo(false)
 
     table.string('category')
-    .notNull();
+      .notNull();
 
     table.string('description')
-    .notNull()
+      .notNull()
 
     table.string('location')
-    .notNull();
+      .notNull();
 
     table.date('date')
-    .notNull();
+      .notNull();
 
     table.time('time')
-    .notNull();
+      .notNull();
 
     table.integer('created_by')
-    .references('id')
-    .inTable(USERS_TABLE_NAME)
-    .notNull();
+      .references('id')
+      .inTable(USERS_TABLE_NAME)
+      .notNull();
   })
 
   await addTableTimestamps(knex, EVENTS_TABLE_NAME);

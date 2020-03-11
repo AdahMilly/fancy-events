@@ -58,6 +58,12 @@ class EventsResource{
       .where({ eventId, userId })
   }
 
+  async cancelEvent(eventId){
+    return knexInstance(EVENTS_TABLE_NAME)
+    .update({cancelled:true})
+    .where({eventId})
+  }
+
 }
 
 export const eventResource = new EventsResource();

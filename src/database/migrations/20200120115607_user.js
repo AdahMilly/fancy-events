@@ -14,7 +14,10 @@ async function createUserTable(knex) {
     .notNull();
 
     table.string('password')
-    .notNull()
+    .notNull();
+
+    table.string('phone')
+    .notNull();
   })
 
   await addTableTimestamps(knex, USERS_TABLE_NAME);

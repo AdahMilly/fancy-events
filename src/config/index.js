@@ -14,7 +14,10 @@ const envVarsSchema = joi
     DATABASE_URL: joi.string().default(null),
     HOST: joi.string().required(),
     SECRET_KEY: joi.string().required(),
-    JWT_EXPIRATION: joi.string().required()
+    JWT_EXPIRATION: joi.string().required(),
+    AT_API_KEY: joi.string().required(),
+    AT_USERNAME: joi.string().required(),
+    AT_SENDER_ID: joi.string().required(),
   })
   .unknown()
   .required();
@@ -38,6 +41,11 @@ export const getConfig = () => {
     },
     secretKey: envVars.SECRET_KEY,
     jwtExpiration: envVars.JWT_EXPIRATION,
+    africastalking:{
+      apiKey: envVars.AT_API_KEY,
+      username: envVars.AT_USERNAME,
+      senderId: envVars.AT_SENDER_ID,
+    }
   
   };
 

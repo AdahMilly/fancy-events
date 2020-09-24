@@ -8,7 +8,7 @@
     "start:dev": "env-cmd -e development nodemon --exec  babel-node src/server.js",
     "db:migrate:make": "env-cmd -e development  babel-node $(npm bin)/knex migrate:make --knexfile ./src/database/knexfile.js",
     "db:migrate:dev": "env-cmd -e development  babel-node $(npm bin)/knex migrate:latest --knexfile ./src/database/knexfile.js",
-    "db:migrate:dev": "babel-node $(npm bin)/knex migrate:latest --knexfile ./src/database/knexfile.js",
+    "db:migrate": "babel-node $(npm bin)/knex migrate:latest --knexfile ./src/database/knexfile.js",
     "db:migrate:rollback": "env-cmd -e development  babel-node $(npm bin)/knex migrate:rollback --knexfile ./src/database/knexfile.js",
     "test": "jest"
   },

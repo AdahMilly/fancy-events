@@ -30,7 +30,6 @@ export function getUsersRouter() {
     '/myRsvps',
     localAuthentication,
     protectedAsyncRequestHandler(async (req,res) => {
-      console.log('fffffffffetchhhhing my srsvps')
       const rsvps = await usersService.getMyRsvps(req.user.id);
       res.status(200).json({message: "my rsvps", rsvps })
     })

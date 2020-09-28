@@ -40,6 +40,7 @@
     "africastalking": "^0.4.5",
     "babel-node": "0.0.1-security",
     "bcrypt": "^3.0.7",
+    "cors": "^2.8.5",
     "env-cmd": "^10.0.1",
     "express": "^4.17.1",
     "fancy-log": "^1.3.3",

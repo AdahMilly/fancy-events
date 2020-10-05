@@ -16,12 +16,6 @@ class UsersService {
       throw new CustomError(409, "User already exists");
     }
     const encryptedPassword = EncryptData.generateHash(password);
-    const createdUser = await usersResource.create({
-      email,
-      name,
-      password: encryptedPassword,
-      phone: phoneNumber,
-    });
 
     let contact;
     if (phoneNumber.startsWith(0)) {
@@ -29,6 +23,12 @@ class UsersService {
     } else {
       contact = phoneNumber;
     }
+    const createdUser = await usersResource.create({
+      email,
+      name,
+      password: encryptedPassword,
+      phone: contact
+    });
 
     await sendSms({ to: contact, message: `Hello ${name}, welcome to fancy events` });
     const token = createToken(

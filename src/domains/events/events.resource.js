@@ -1,5 +1,4 @@
 import { knexInstance } from '../../database/knexInstance';
-import { usersResource } from '../users/users.resource';
 
 const EVENTS_TABLE_NAME = 'events';
 const RSVPS_TABLE = 'rsvps';
@@ -24,6 +23,11 @@ class EventsResource{
     return event;
   }
 
+  async getMyEvents(userId){
+    const events = await knexInstance(EVENTS_TABLE_NAME).select('*').where('created_by', userId)
+    return events;
+  }
+
   async updateEvent(updateEventBody, eventId){
     const updatedEvent = await knexInstance(EVENTS_TABLE_NAME)
     .update(updateEventBody, '*')
@@ -45,7 +49,7 @@ class EventsResource{
 
   async getRsvps(eventId){
     const guests = await knexInstance(RSVPS_TABLE)
-    .select(['name', 'email'])
+    .select(['name', 'phone'])
     .innerJoin(USERS_TABLE, `${USERS_TABLE}.id`, `${RSVPS_TABLE}.user_id`)
     .where(`${RSVPS_TABLE}.event_id`, eventId)
     .where(`${RSVPS_TABLE}.cancelled`, false);
@@ -61,7 +65,7 @@ class EventsResource{
   async cancelEvent(eventId){
     return knexInstance(EVENTS_TABLE_NAME)
     .update({cancelled:true})
-    .where({eventId})
+    .where('id', eventId)
   }
 
 }

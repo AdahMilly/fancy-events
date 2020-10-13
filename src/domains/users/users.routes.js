@@ -21,8 +21,8 @@ export function getUsersRouter() {
     '/login',
     localAuthentication,
     protectedAsyncRequestHandler(async (req, res) => {
-      const token = await usersService.login(req.user);
-      res.status(200).json({ message: "login successful", token });
+      const authResponse = await usersService.login(req.user);
+      res.status(200).json({ message: "login successful", ...authResponse });
     }),
   );
 

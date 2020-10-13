@@ -45,9 +45,9 @@ class UsersService {
   }
 
   async login(user) {
-    const { id } = user;
+    const { id, name } = user;
     const token = createToken({ id }, config.secretKey);
-    return token;
+    return { token, id, name  };
   }
 
   async getMyRsvps(userId) {

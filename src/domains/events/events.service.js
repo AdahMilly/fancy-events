@@ -26,6 +26,16 @@ class EventsService {
       throw new CustomError(400, 'You have no events yet');
     }
 
+    const newEvents =  await Promise.all(
+      events.map(async event => {
+        event.guest = await this.getRsvps(event.id)
+        return event;
+      })
+    )
+
+    console.log(newEvents)
+
+
     return events;
   }
 
@@ -78,7 +88,6 @@ class EventsService {
   async cancelEvent(eventId) {
     const event = await eventResource.getEvent('id', eventId); 
     const guests = await eventResource.getRsvps(eventId);
-    console.log(guests)
     await Promise.all(guests.map(guest => sendSms({
       to: guest.phone,
       message: `Hello ${guest.name}, this is to notify you that the event, ${event.name}, has been cancelled. Fancy Events`

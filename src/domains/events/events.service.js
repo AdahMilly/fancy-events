@@ -26,15 +26,12 @@ class EventsService {
       throw new CustomError(400, 'You have no events yet');
     }
 
-    const newEvents =  await Promise.all(
+    await Promise.all(
       events.map(async event => {
-        event.guest = await this.getRsvps(event.id)
+        event.guests = await this.getRsvps(event.id)
         return event;
       })
     )
-
-    console.log(newEvents)
-
 
     return events;
   }

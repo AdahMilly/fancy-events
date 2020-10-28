@@ -47,6 +47,7 @@ class EventsResource {
   }
 
   async deleteEvent(eventId) {
+    await knexInstance(RSVPS_TABLE).delete().where('event_id', eventId)
     return knexInstance(EVENTS_TABLE_NAME).delete().where("id", eventId);
   }
 
@@ -65,7 +66,7 @@ class EventsResource {
 
   async cancelRsvp(eventId, userId) {
     return knexInstance(RSVPS_TABLE)
-      .update({ cancelled: true })
+      .delete()
       .where({ eventId, userId });
   }
 

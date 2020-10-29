@@ -42,6 +42,7 @@ class EventsService {
   }
 
   async deleteEvent(eventId) {
+     await this.cancelEvent(eventId);
     return eventResource.deleteEvent(eventId);
   }
 
